@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "astar-codegenerators", "ast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "astar-codegenerators.Unit.Tests", "..\..\tests\astar-codegenerators.Unit.Tests\astar-codegenerators.Unit.Tests.csproj", "{9F5BA17E-0FCD-4FB8-A1D1-5FE5DC60D109}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BFA30D2C-AE33-4849-8EE8-78BC43B67974}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\README.md = ..\..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
