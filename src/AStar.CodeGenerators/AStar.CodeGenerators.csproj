@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<RootNamespace>astar_codegenerators</RootNamespace>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<IsRoslynComponent>true</IsRoslynComponent>
 		<Nullable>enable</Nullable>
@@ -10,17 +9,26 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<Title>AStar Code Generators</Title>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<Version>1.0.0-alpha-1</Version>
-		<AssemblyVersion>$(Version).0</AssemblyVersion>
-		<AssemblyFileVersion>$(Version).0</AssemblyFileVersion>
+		<Version>0.0.1-alpha-1</Version>
 		<Authors>Jason Barden</Authors>
+		<Company>AStar Development</Company>
 		<Description>
 			Contains a collection of C# Code Generators.
-			<p>Currently, only the ToString method has been implemented, but the list will grow over time.</p>
+			<para>Currently, only the ToString method has been implemented, but the list will grow over time.</para>
 		</Description>
+		<Copyright>AStar Development 2024</Copyright>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="bin\Debug\netstandard2.0\\AStar.CodeGenerators.dll" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<!-- Package the generator in the analyzer directory of the nuget package -->
@@ -34,5 +42,9 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy &quot;bin\Debug\*.nupkg&quot; &quot;C:\Local-Nuget&quot; /Y" />
+	</Target>
 
 </Project>
