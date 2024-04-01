@@ -9,10 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference
-		  Include="..\AStar.CodeGenerators\AStar.CodeGenerators.csproj"
-		  OutputItemType="Analyzer"
-		  ReferenceOutputAssembly="false"/>
+		<ProjectReference Include="..\AStar.CodeGenerators\AStar.CodeGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 </Project>

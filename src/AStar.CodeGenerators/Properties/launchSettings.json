@@ -2,7 +2,7 @@
   "profiles": {
     "CodeGenerator-Debug": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\AStar.CodeGenerators.ConsoleApplication\\AStar.CodeGenerators.ConsoleApplication.csproj"
+      "targetProject": "..\\AStar.CodeGenerators.ConsoleApplication\\ConsoleApplication.csproj"
     }
   }
 }

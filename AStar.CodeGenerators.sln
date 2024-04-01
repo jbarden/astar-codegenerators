@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F5240B9F-206
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6E88D56D-E24C-49C3-A406-978FF90FFDBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "astar-codegenerators.Unit.Tests", "..\..\tests\astar-codegenerators.Unit.Tests\astar-codegenerators.Unit.Tests.csproj", "{9F5BA17E-0FCD-4FB8-A1D1-5FE5DC60D109}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BFA30D2C-AE33-4849-8EE8-78BC43B67974}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\README.md = ..\..\README.md
@@ -16,7 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AStar.CodeGenerators", "src\AStar.CodeGenerators\AStar.CodeGenerators.csproj", "{897C5E87-2C6F-4799-B727-C59AD09764E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AStar.CodeGenerators.ConsoleApplication", "src\AStar.CodeGenerators.ConsoleApplication\AStar.CodeGenerators.ConsoleApplication.csproj", "{9E0E0465-4E33-4660-B7ED-443EC245760C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApplication", "src\AStar.CodeGenerators.ConsoleApplication\ConsoleApplication.csproj", "{9E0E0465-4E33-4660-B7ED-443EC245760C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AStar.CodeGenerators.Unit.Tests", "tests\AStar.CodeGenerators.Unit.Tests\AStar.CodeGenerators.Unit.Tests.csproj", "{56F189B9-4C60-4921-B098-1D0A3D374EE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9F5BA17E-0FCD-4FB8-A1D1-5FE5DC60D109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F5BA17E-0FCD-4FB8-A1D1-5FE5DC60D109}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F5BA17E-0FCD-4FB8-A1D1-5FE5DC60D109}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F5BA17E-0FCD-4FB8-A1D1-5FE5DC60D109}.Release|Any CPU.Build.0 = Release|Any CPU
 		{897C5E87-2C6F-4799-B727-C59AD09764E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{897C5E87-2C6F-4799-B727-C59AD09764E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897C5E87-2C6F-4799-B727-C59AD09764E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,14 +32,18 @@ Global
 		{9E0E0465-4E33-4660-B7ED-443EC245760C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E0E0465-4E33-4660-B7ED-443EC245760C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E0E0465-4E33-4660-B7ED-443EC245760C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F189B9-4C60-4921-B098-1D0A3D374EE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F189B9-4C60-4921-B098-1D0A3D374EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F189B9-4C60-4921-B098-1D0A3D374EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F189B9-4C60-4921-B098-1D0A3D374EE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9F5BA17E-0FCD-4FB8-A1D1-5FE5DC60D109} = {6E88D56D-E24C-49C3-A406-978FF90FFDBF}
 		{897C5E87-2C6F-4799-B727-C59AD09764E9} = {F5240B9F-206D-436E-A36A-FA185E6994BB}
 		{9E0E0465-4E33-4660-B7ED-443EC245760C} = {F5240B9F-206D-436E-A36A-FA185E6994BB}
+		{56F189B9-4C60-4921-B098-1D0A3D374EE1} = {6E88D56D-E24C-49C3-A406-978FF90FFDBF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {962D82F9-E8F0-406B-8305-654A6A446067}

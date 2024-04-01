@@ -1,4 +1,4 @@
-namespace astar_codegenerators.Unit.Tests;
+namespace AStar.CodeGenerators.Unit.Tests;
 
 public class UnitTest1
 {
