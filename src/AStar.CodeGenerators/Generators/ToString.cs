@@ -57,8 +57,10 @@ internal class ToString : IIncrementalGenerator
     }}
 }}
 ");
-
-        context.AddSource(fileName, stringBuilder.ToString());
+        if (!fileName.Contains("NotSpecified", StringComparison.OrdinalIgnoreCase))
+        {
+            context.AddSource(fileName, stringBuilder.ToString());
+        }
     }
 
     private static bool IsSyntaxTarget(SyntaxNode node)
