@@ -11,7 +11,7 @@ $@"namespace {Constants.NamespaceName};
 /// <summary>
 /// The GenerateToString attribute is intended to be used on classes to simplify creating, as you would expect, the overridden ToString() method.
 /// <para>
-/// There are additional attributes to allow for Redacting, Masking or Ignoring specific properties. Any public property without one of these attributes will be included in the ToString output.
+/// There are additional attributes to allow for Redacting, Masking or Ignoring specific properties. Any public property without one of these attributes applied will be included, in full, in the ToString output.
 /// </para>
 /// </summary>
 [System.AttributeUsage(System.AttributeTargets.Class, Inherited = false)]
