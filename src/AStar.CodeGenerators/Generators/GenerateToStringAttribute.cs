@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace AStar.CodeGenerators.Generators;
 
 [Generator]
-internal class ToString : IIncrementalGenerator
+internal class GenerateToStringAttribute : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -38,9 +38,9 @@ internal class ToString : IIncrementalGenerator
             return $""");
 
         var first = true;
-        foreach (var propertyName in classToGenerateDetails.PropertyNames)
+        foreach(var propertyName in classToGenerateDetails.PropertyNames)
         {
-            if (first)
+            if(first)
             {
                 first = false;
             }
@@ -71,18 +71,18 @@ internal class ToString : IIncrementalGenerator
         var classSymbol = (INamedTypeSymbol)context.SemanticModel.GetDeclaredSymbol(classDeclarationSyntax);
         var attributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName($"{Constants.NamespaceName}.GenerateToStringAttribute");
 
-        if (classSymbol is not null && attributeSymbol is not null)
+        if(classSymbol is not null && attributeSymbol is not null)
         {
-            foreach (var attributeData in classSymbol.GetAttributes())
+            foreach(var attributeData in classSymbol.GetAttributes())
             {
-                if (attributeSymbol.Equals(attributeData.AttributeClass, SymbolEqualityComparer.Default))
+                if(attributeSymbol.Equals(attributeData.AttributeClass, SymbolEqualityComparer.Default))
                 {
                     details.NamespaceName = classSymbol.ContainingNamespace.ToDisplayString();
                     details.ClassName = classSymbol.Name;
 
-                    foreach (var memberSymbol in classSymbol.GetMembers())
+                    foreach(var memberSymbol in classSymbol.GetMembers())
                     {
-                        if (memberSymbol.Kind == SymbolKind.Property && memberSymbol.DeclaredAccessibility == Accessibility.Public)
+                        if(memberSymbol.Kind == SymbolKind.Property && memberSymbol.DeclaredAccessibility == Accessibility.Public)
                         {
                             details.AddPropertyName(memberSymbol.Name);
                         }
@@ -94,5 +94,6 @@ internal class ToString : IIncrementalGenerator
         return details;
     }
 
-    private static void PostInitializationOutput(IncrementalGeneratorPostInitializationContext context) => GenerateToStringAttributeCreator.PostInitializationOutput(context);//GenerateRedactAttributeCreator.PostInitializationOutput(context);//GenerateMaskAttributeCreator.PostInitializationOutput(context);//GenerateIgnoreAttributeCreator.PostInitializationOutput(context);
+    private static void PostInitializationOutput(IncrementalGeneratorPostInitializationContext context)
+        => GenerateToStringAttributeCreator.PostInitializationOutput(context);
 }

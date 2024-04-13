@@ -1,11 +1,11 @@
 ﻿using Microsoft.CodeAnalysis;
 
 namespace AStar.CodeGenerators.Generators;
+
 internal static class GenerateMaskAttributeCreator
 {
     public static void PostInitializationOutput(IncrementalGeneratorPostInitializationContext context)
-    {
-        context.AddSource($"{Constants.NamespaceName}.MaskAttribute.g.cs",
+        => context.AddSource($"{Constants.NamespaceName}.MaskAttribute.g.cs",
 $@"namespace {Constants.NamespaceName};
 
 /// <summary>
@@ -15,6 +15,5 @@ $@"namespace {Constants.NamespaceName};
 /// </para>
 /// </summary>
 [System.AttributeUsage(System.AttributeTargets.Property, Inherited = false)]
-internal sealed class MaskAttribute : System.Attribute {{ }}");
-    }
+public sealed class MaskAttribute : System.Attribute {{ }}");
 }

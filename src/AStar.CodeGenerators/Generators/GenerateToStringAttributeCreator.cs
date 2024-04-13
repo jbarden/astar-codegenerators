@@ -1,11 +1,11 @@
 ﻿using Microsoft.CodeAnalysis;
 
 namespace AStar.CodeGenerators.Generators;
+
 internal static class GenerateToStringAttributeCreator
 {
     public static void PostInitializationOutput(IncrementalGeneratorPostInitializationContext context)
-    {
-        context.AddSource($"{Constants.NamespaceName}.GenerateToStringAttribute.g.cs",
+        => context.AddSource($"{Constants.NamespaceName}.GenerateToStringAttribute.g.cs",
 $@"namespace {Constants.NamespaceName};
 
 /// <summary>
@@ -15,6 +15,5 @@ $@"namespace {Constants.NamespaceName};
 /// </para>
 /// </summary>
 [System.AttributeUsage(System.AttributeTargets.Class, Inherited = false)]
-internal sealed class GenerateToStringAttribute : System.Attribute {{ }}");
-    }
+public sealed class GenerateToStringAttribute : System.Attribute {{ }}");
 }

@@ -15,7 +15,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<Version>0.0.1-alpha-1</Version>
+		<Version>0.1.0</Version>
 		<Authors>Jason Barden</Authors>
 		<Company>AStar Development</Company>
 		<Description>
@@ -24,6 +24,13 @@
 		</Description>
 		<Copyright>AStar Development 2024</Copyright>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/jbarden/astar-codegenerators.git</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/jbarden/astar-codegenerators</PackageProjectUrl>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -33,6 +40,14 @@
 	<ItemGroup>
 		<!-- Package the generator in the analyzer directory of the nuget package -->
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+		<None Include="..\..\LICENSE">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -44,7 +59,7 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="xcopy &quot;bin\Debug\*.nupkg&quot; &quot;C:\Local-Nuget&quot; /Y" />
+		<Exec Command="xcopy &quot;bin\Debug\*.*nupkg&quot; &quot;C:\Local-Nuget&quot; /Y" />
 	</Target>
 
 </Project>
