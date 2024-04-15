@@ -34,7 +34,10 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
             var className = classToGenerateDetails.ClassName;
             var fileName = $"{namespaceName}.{className}.g.cs";
 
-            _ = stringBuilder.Append($@"namespace {namespaceName}
+            _ = stringBuilder.Append($@"
+using System;
+
+namespace {namespaceName}
 {{
     partial class {className}
     {{
@@ -43,7 +46,7 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
             return $""");
 
             var first = true;
-            foreach(var propertyName in classToGenerateDetails.PropertyDetails)
+            foreach(var propertyDetails in classToGenerateDetails.PropertyDetails)
             {
                 if(first)
                 {
@@ -54,14 +57,34 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
                     _ = stringBuilder.Append("; ");
                 }
 
-                _ = stringBuilder.Append($"{propertyName}:{{{propertyName}}}");
+                if(propertyDetails.Attributes.FirstOrDefault(att => att.AttributeClass!.Name.Equals("IgnoreAttribute")) != null)
+                {
+                    continue;
+                }
+
+                if(propertyDetails.Attributes.FirstOrDefault(att => att.AttributeClass!.Name.Equals("RedactAttribute")) != null)
+                {
+                    _ = stringBuilder.Append($"{propertyDetails.PropertyName}: REDACTED");
+                }
+                else
+                {
+                    _ = propertyDetails.Attributes.FirstOrDefault(att => att.AttributeClass!.Name.Equals("MaskAttribute")) != null
+                        ? MaskTheValue(stringBuilder, propertyDetails)
+                        : stringBuilder.Append($"{propertyDetails.PropertyName}: {{{propertyDetails.PropertyName}}}");
+                }
             }
 
-            _ = stringBuilder.Append($@""";
-        }}
-    }}
-}}
-");
+            _ = stringBuilder.Append("""
+                                     ";
+                                             }
+
+                                             private static object GetPropertyValue(object src, string propertyName)
+                                             {
+                                                 return $"{propertyName.Substring(0, 4)}***{propertyName.Substring(propertyName.Length - 4, 4)}";
+                                             }
+                                         }
+                                     }
+                                     """);
             context.AddSource(fileName, stringBuilder.ToString());
         }
         catch(Exception ex)
@@ -70,6 +93,9 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
             context.AddSource($"{classToGenerateDetails.NamespaceName}.{classToGenerateDetails.ClassName}.g.cs", stringBuilder.ToString());
         }
     }
+
+    private static StringBuilder MaskTheValue(StringBuilder stringBuilder, PropertyDetails propertyDetails)
+        => stringBuilder.Append($"{propertyDetails.PropertyName}: {{GetPropertyValue(this, {propertyDetails.PropertyName})}}");
 
     private static bool IsSyntaxTarget(SyntaxNode node)
         => node is ClassDeclarationSyntax classDeclarationSyntax && classDeclarationSyntax.AttributeLists.Count > 0;
@@ -94,8 +120,8 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
                     {
                         if(memberSymbol.Kind == SymbolKind.Property && memberSymbol.DeclaredAccessibility == Accessibility.Public)
                         {
-                            var atts = memberSymbol.GetAttributes();
-                            details.AddPropertyDetails(new PropertyDetails { PropertyName = memberSymbol.Name, Attributes = atts });
+                            var attributes = memberSymbol.GetAttributes();
+                            details.AddPropertyDetails(new PropertyDetails { PropertyName = memberSymbol.Name, Attributes = attributes });
                         }
                     }
                 }

@@ -19,8 +19,10 @@ public partial class CreateCustomerCommand
 
     public string PostOrZipCode { get; set; } = string.Empty;
 
+    [Mask]
     public string MaskedProperty { get; set; } = "A long string to confirm masking... Hope it works.";
 
+    [Redact]
     public string RedactedProperty { get; set; } = "A long string to confirm redacting... Hope it works.";
 
     [Ignore]
