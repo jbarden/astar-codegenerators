@@ -24,12 +24,17 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
 
     private static void GenerateCode(SourceProductionContext context, ClassToGenerateDetails classToGenerateDetails)
     {
-        var namespaceName = classToGenerateDetails.NamespaceName;
-        var className = classToGenerateDetails.ClassName;
-        var fileName = $"{namespaceName}.{className}.g.cs";
+        if(classToGenerateDetails.ClassName.StartsWith("NotSpecified", StringComparison.OrdinalIgnoreCase))
+        { return; }
 
         var stringBuilder = new StringBuilder();
-        _ = stringBuilder.Append($@"namespace {namespaceName}
+        try
+        {
+            var namespaceName = classToGenerateDetails.NamespaceName;
+            var className = classToGenerateDetails.ClassName;
+            var fileName = $"{namespaceName}.{className}.g.cs";
+
+            _ = stringBuilder.Append($@"namespace {namespaceName}
 {{
     partial class {className}
     {{
@@ -37,29 +42,32 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
         {{
             return $""");
 
-        var first = true;
-        foreach(var propertyName in classToGenerateDetails.PropertyNames)
-        {
-            if(first)
+            var first = true;
+            foreach(var propertyName in classToGenerateDetails.PropertyDetails)
             {
-                first = false;
-            }
-            else
-            {
-                _ = stringBuilder.Append("; ");
+                if(first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    _ = stringBuilder.Append("; ");
+                }
+
+                _ = stringBuilder.Append($"{propertyName}:{{{propertyName}}}");
             }
 
-            _ = stringBuilder.Append($"{propertyName}:{{{propertyName}}}");
-        }
-
-        _ = stringBuilder.Append($@""";
+            _ = stringBuilder.Append($@""";
         }}
     }}
 }}
 ");
-        if (!fileName.Contains("NotSpecified", StringComparison.OrdinalIgnoreCase))
-        {
             context.AddSource(fileName, stringBuilder.ToString());
+        }
+        catch(Exception ex)
+        {
+            _ = stringBuilder.AppendLine(ex.ToString());
+            context.AddSource($"{classToGenerateDetails.NamespaceName}.{classToGenerateDetails.ClassName}.g.cs", stringBuilder.ToString());
         }
     }
 
@@ -86,7 +94,8 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
                     {
                         if(memberSymbol.Kind == SymbolKind.Property && memberSymbol.DeclaredAccessibility == Accessibility.Public)
                         {
-                            details.AddPropertyName(memberSymbol.Name);
+                            var atts = memberSymbol.GetAttributes();
+                            details.AddPropertyDetails(new PropertyDetails { PropertyName = memberSymbol.Name, Attributes = atts });
                         }
                     }
                 }
@@ -97,5 +106,10 @@ internal class GenerateToStringAttribute : IIncrementalGenerator
     }
 
     private static void PostInitializationOutput(IncrementalGeneratorPostInitializationContext context)
-        => GenerateToStringAttributeCreator.PostInitializationOutput(context);
+    {
+        GenerateToStringAttributeCreator.PostInitializationOutput(context);
+        GenerateIgnoreAttributeCreator.PostInitializationOutput(context);
+        GenerateMaskAttributeCreator.PostInitializationOutput(context);
+        GenerateRedactAttributeCreator.PostInitializationOutput(context);
+    }
 }

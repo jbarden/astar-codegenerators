@@ -1,7 +1,6 @@
-﻿using AStar.CodeGenerators.ToStringAttributes;
+﻿namespace ConsoleApplication.Models;
 
-namespace ConsoleApplication.Models;
-
+[GenerateToString]
 public partial class CreateCustomerCommand
 {
     public string Name { get; set; } = string.Empty;
@@ -22,6 +21,6 @@ public partial class CreateCustomerCommand
 
     public string RedactedProperty { get; set; } = "A long string to confirm redacting... Hope it works.";
 
-    [IgnoreAttribute]
+    [Ignore]
     public string IgnoredProperty { get; set; } = "A long string to confirm ignoring... Hope it works.";
 }
