@@ -1,4 +1,6 @@
-﻿namespace ConsoleApplication.Models;
+﻿using AStar.CodeGenerators;
+
+namespace ConsoleApplication.Models;
 
 [GenerateToString]
 public partial class CreateCustomerCommand
