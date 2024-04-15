@@ -5,6 +5,10 @@ namespace ConsoleApplication.Models;
 [GenerateToString]
 public partial class CreateCustomerCommand
 {
+    public Address Address { get; set; } = new Address();
+
+    public IList<Address> Addresses { get; set; } = new List<Address>();
+
     public string Name { get; set; } = string.Empty;
 
     public string Email { get; set; } = string.Empty;
